@@ -1,5 +1,5 @@
 // Seen Questions Tracker — prevents showing the same question twice
-// Tracks question hashes per category in localStorage
+// Uses ordered list (oldest-seen first) for least-recently-seen prioritization
 
 const STORAGE_KEY = 'trivia_seen_questions';
 
@@ -42,49 +42,68 @@ function saveSeenData(data) {
 
 /**
  * Filter out questions the user has already seen in this category.
- * If all questions have been seen (or nearly all), auto-resets the category.
+ * Uses least-recently-seen ordering: unseen questions first, then
+ * oldest-seen questions if not enough unseen are available.
+ * Trims the seen list to keep only the most recent half, so older
+ * questions gradually become available again.
  *
  * @param {Array} questions - Array of question objects with `question` field
  * @param {string} category - Category name (e.g., 'Bollywood', 'Cricket')
  * @param {number} neededCount - How many questions we need
- * @returns {Array} - Filtered questions (unseen first, then reset if needed)
+ * @returns {Array} - Filtered questions (unseen first, then least-recently-seen)
  */
 export function filterUnseenQuestions(questions, category, neededCount) {
   const seenData = getSeenData();
-  const seenHashes = new Set(seenData[category] || []);
+  const seenList = seenData[category] || []; // ordered: oldest first
+  const seenSet = new Set(seenList);
 
   // Split into unseen and seen
-  const unseen = questions.filter(q => !seenHashes.has(hashQuestion(q.question)));
-  const seen = questions.filter(q => seenHashes.has(hashQuestion(q.question)));
+  const unseen = questions.filter(q => !seenSet.has(hashQuestion(q.question)));
 
   // If we have enough unseen questions, use those
   if (unseen.length >= neededCount) {
     return unseen;
   }
 
-  // Not enough unseen — reset category and return all questions
-  // This ensures the user eventually sees all questions again
-  if (seenData[category]) {
-    delete seenData[category];
+  // Not enough unseen — supplement with least-recently-seen questions
+  // Sort seen questions by their position in seenList (oldest seen = lowest index = shown first)
+  const seenQuestions = questions
+    .filter(q => seenSet.has(hashQuestion(q.question)))
+    .sort((a, b) => {
+      const idxA = seenList.indexOf(hashQuestion(a.question));
+      const idxB = seenList.indexOf(hashQuestion(b.question));
+      return idxA - idxB; // oldest-seen first
+    });
+
+  const combined = [...unseen, ...seenQuestions];
+
+  // Trim the seen list: drop the oldest half so those questions
+  // won't be considered "recently seen" next time
+  if (unseen.length < neededCount && seenList.length > 0) {
+    const keepCount = Math.floor(seenList.length / 2);
+    seenData[category] = seenList.slice(seenList.length - keepCount);
     saveSeenData(seenData);
   }
-  return questions;
+
+  return combined;
 }
 
 /**
- * Mark questions as seen after a game
+ * Mark questions as seen after a game.
+ * Appends to the end of the list (newest = most recently seen).
  *
  * @param {Array} questions - Array of question objects that were shown
  * @param {string} category - Category name
  */
 export function markQuestionsAsSeen(questions, category) {
   const seenData = getSeenData();
-  const existingHashes = seenData[category] || [];
+  const existingList = seenData[category] || [];
   const newHashes = questions.map(q => hashQuestion(q.question));
 
-  // Merge and deduplicate
-  const merged = [...new Set([...existingHashes, ...newHashes])];
-  seenData[category] = merged;
+  // Remove any existing entries for these questions (they'll be re-added at the end)
+  const filtered = existingList.filter(h => !newHashes.includes(h));
+  // Append new hashes at end (most recently seen)
+  seenData[category] = [...filtered, ...newHashes];
   saveSeenData(seenData);
 }
 
