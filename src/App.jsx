@@ -16,7 +16,7 @@ export default function App() {
   return (
     <ThemeProvider>
     <GameProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/trivia-app">
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
