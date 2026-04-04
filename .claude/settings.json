@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "postToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write $(echo $CLAUDE_FILE_PATHS | tr ',' ' ') 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
