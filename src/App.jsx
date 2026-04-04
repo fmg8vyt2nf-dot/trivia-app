@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { GameProvider } from './context/GameContext';
 import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/layout/Layout';
@@ -16,7 +16,7 @@ export default function App() {
   return (
     <ThemeProvider>
     <GameProvider>
-      <BrowserRouter basename="/trivia-app">
+      <HashRouter>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
@@ -30,7 +30,7 @@ export default function App() {
             <Route path="/recap" element={<RecapPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </GameProvider>
     </ThemeProvider>
   );
