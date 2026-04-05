@@ -178,7 +178,18 @@ export default function GamePlayPage() {
     prevStreakRef.current = streak;
   }, [streak]);
 
-  if (!currentQuestion) return null;
+  if (!currentQuestion) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center gap-4 px-4">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          className="w-10 h-10 rounded-full border-2 border-white/10 border-t-primary-500"
+        />
+        <span className="text-sm text-white/40">Loading questions...</span>
+      </div>
+    );
+  }
 
   const isWrong = status === 'answered' && selectedAnswer !== null && selectedAnswer !== currentQuestion.correctAnswer;
 

@@ -22,6 +22,7 @@ export default function GameSetupPage() {
   const [selectedCount, setSelectedCount] = useState(10);
   const [gameMode, setGameMode] = useState('standard');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const isSpeed = gameMode === 'speed';
   const isBlitz = gameMode === 'blitz';
@@ -29,6 +30,7 @@ export default function GameSetupPage() {
 
   async function handleStart() {
     setLoading(true);
+    setError(null);
     try {
       if (isBlitz) {
         await startCategoryBlitz({
@@ -51,6 +53,7 @@ export default function GameSetupPage() {
       navigate('/play');
     } catch (err) {
       console.error('Failed to start game:', err);
+      setError('Failed to load questions. Please try again.');
       setLoading(false);
     }
   }
@@ -235,6 +238,16 @@ export default function GameSetupPage() {
         transition={{ delay: 0.4 }}
         className="text-center"
       >
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 px-4 py-3 rounded-xl border border-wrong/30 bg-wrong/10 text-wrong text-sm font-medium"
+          >
+            {error}
+          </motion.div>
+        )}
+
         <Card className="inline-block mb-6 !py-3 !px-5">
           <div className="text-xs text-white/40">
             {isSpeed && '⚡ Speed Round · '}
