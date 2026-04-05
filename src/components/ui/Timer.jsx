@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-export default function Timer({ timeRemaining, maxTime }) {
+export default function Timer({ timeRemaining, maxTime, compact = false }) {
   const percentage = maxTime > 0 ? (timeRemaining / maxTime) * 100 : 0;
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
@@ -12,16 +12,16 @@ export default function Timer({ timeRemaining, maxTime }) {
     '#ef4444';
 
   return (
-    <div className="relative w-20 h-20 flex items-center justify-center">
+    <div className={`relative ${compact ? 'w-12 h-12' : 'w-20 h-20'} flex items-center justify-center flex-shrink-0`}>
       <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r={radius} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="5" />
+        <circle cx="50" cy="50" r={radius} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth={compact ? 7 : 5} />
         <motion.circle
           cx="50"
           cy="50"
           r={radius}
           fill="none"
           stroke={color}
-          strokeWidth="5"
+          strokeWidth={compact ? 7 : 5}
           strokeLinecap="round"
           strokeDasharray={circumference}
           animate={{ strokeDashoffset }}
@@ -30,7 +30,7 @@ export default function Timer({ timeRemaining, maxTime }) {
         />
       </svg>
       <motion.span
-        className="absolute text-xl font-bold"
+        className={`absolute ${compact ? 'text-sm' : 'text-xl'} font-bold`}
         style={{ color }}
         animate={timeRemaining <= 5 ? { scale: [1, 1.15, 1] } : {}}
         transition={{ repeat: Infinity, duration: 0.5 }}

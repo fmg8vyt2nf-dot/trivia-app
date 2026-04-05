@@ -23,17 +23,17 @@ const reactions = {
   },
 };
 
-export default function AvatarDisplay({ emoji, reaction = 'idle' }) {
+export default function AvatarDisplay({ emoji, reaction = 'idle', compact = false }) {
   const config = reactions[reaction] || reactions.idle;
 
   return (
     <motion.div
-      className="w-14 h-14 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center backdrop-blur-sm"
+      className={`${compact ? 'w-10 h-10' : 'w-14 h-14'} rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center backdrop-blur-sm`}
       animate={config.animate}
       transition={config.transition}
-      key={reaction} // Re-trigger animation on reaction change
+      key={reaction}
     >
-      <span className="text-2xl">{emoji}</span>
+      <span className={compact ? 'text-lg' : 'text-2xl'}>{emoji}</span>
     </motion.div>
   );
 }

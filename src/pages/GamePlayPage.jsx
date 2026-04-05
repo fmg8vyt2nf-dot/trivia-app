@@ -183,7 +183,7 @@ export default function GamePlayPage() {
   const isWrong = status === 'answered' && selectedAnswer !== null && selectedAnswer !== currentQuestion.correctAnswer;
 
   return (
-    <div className="flex-1 px-4 py-6 max-w-2xl mx-auto w-full relative">
+    <div className="flex-1 px-4 py-3 sm:py-6 max-w-2xl mx-auto w-full relative">
       <Confetti active={showConfetti} />
 
       {/* Category Blitz banner */}
@@ -226,17 +226,8 @@ export default function GamePlayPage() {
         </motion.div>
       )}
 
-      {/* Top bar */}
-      <div className="flex items-center justify-between mb-4 gap-4">
-        <div className="flex-1">
-          <QuestionProgress current={currentIndex} total={questions.length} />
-        </div>
-        <StreakIndicator streak={streak} />
-        <ScoreDisplay score={score} />
-      </div>
-
-      {/* Timer + Avatar */}
-      <div className="flex items-center justify-center gap-4 mb-4">
+      {/* Top bar: Avatar + Progress + Timer + Score */}
+      <div className="flex items-center justify-between mb-3 gap-3">
         <AvatarDisplay
           emoji={selectedAvatar.emoji}
           reaction={
@@ -245,12 +236,20 @@ export default function GamePlayPage() {
                 : selectedAnswer === null ? 'timeUp' : 'wrong')
               : 'thinking'
           }
+          compact
         />
-        <Timer timeRemaining={timeRemaining} maxTime={timePerQuestion} />
+        <div className="flex-1 flex flex-col gap-1">
+          <QuestionProgress current={currentIndex} total={questions.length} />
+          <div className="flex items-center gap-3">
+            <StreakIndicator streak={streak} />
+            <ScoreDisplay score={score} />
+          </div>
+        </div>
+        <Timer timeRemaining={timeRemaining} maxTime={timePerQuestion} compact />
       </div>
 
       {/* Power-ups */}
-      <div className="mb-5">
+      <div className="mb-3">
         <PowerUpBar
           powerUps={powerUps}
           onUseFiftyFifty={handleFiftyFifty}
@@ -268,9 +267,9 @@ export default function GamePlayPage() {
         <motion.div
           initial={{ opacity: 0, y: -10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="mb-4 px-4 py-3 rounded-xl border border-amber-500/30 bg-amber-500/10 backdrop-blur-sm text-center"
+          className="mb-2 px-3 py-2 rounded-lg border border-amber-500/30 bg-amber-500/10 backdrop-blur-sm text-center"
         >
-          <span className="text-amber-300 text-sm font-medium">💡 {currentHint}</span>
+          <span className="text-amber-300 text-xs sm:text-sm font-medium">💡 {currentHint}</span>
         </motion.div>
       )}
 
@@ -288,9 +287,9 @@ export default function GamePlayPage() {
         <motion.div
           initial={{ opacity: 0, y: -10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="mb-4 px-4 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-sm text-center"
+          className="mb-2 px-3 py-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-sm text-center"
         >
-          <span className="text-emerald-300 text-sm font-medium">🛡️ Streak Shield activated! Streak preserved!</span>
+          <span className="text-emerald-300 text-xs sm:text-sm font-medium">🛡️ Streak Shield activated!</span>
         </motion.div>
       )}
 
@@ -299,9 +298,9 @@ export default function GamePlayPage() {
         <motion.div
           initial={{ opacity: 0, y: -10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="mb-4 px-4 py-3 rounded-xl border border-sky-500/30 bg-sky-500/10 backdrop-blur-sm text-center"
+          className="mb-2 px-3 py-2 rounded-lg border border-sky-500/30 bg-sky-500/10 backdrop-blur-sm text-center"
         >
-          <span className="text-sky-300 text-sm font-medium">🎯 Try again! One more chance</span>
+          <span className="text-sky-300 text-xs sm:text-sm font-medium">🎯 Try again! One more chance</span>
         </motion.div>
       )}
 
