@@ -32,7 +32,7 @@ export default function PowerUpBar({ powerUps, onUseFiftyFifty, onUseSkip, onUse
             whileTap={!isDisabled ? { scale: 0.92 } : {}}
             onClick={() => !isDisabled && handlers[key]?.()}
             disabled={isDisabled}
-            className={`relative flex flex-col items-center gap-0.5 px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-xl border transition-all cursor-pointer ${
+            className={`relative flex-1 flex flex-col items-center gap-0.5 min-w-[44px] py-2 sm:px-4 sm:py-2.5 rounded-xl border transition-all cursor-pointer ${
               isDisabled
                 ? 'border-white/[0.04] bg-white/[0.02] opacity-40 cursor-not-allowed'
                 : 'border-white/[0.1] bg-white/[0.05] hover:bg-white/[0.08] hover:border-primary-500/30 hover:shadow-[0_0_15px_rgba(255,107,53,0.1)]'
