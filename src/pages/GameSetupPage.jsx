@@ -15,7 +15,7 @@ import MasteryStars from '../components/game/MasteryStars';
 export default function GameSetupPage() {
   const navigate = useNavigate();
   const { startGame, startSpeedRound, startCategoryBlitz } = useTrivia();
-  const { hasSpeedRound, hasCategoryBlitz } = usePerks();
+  const { hasSpeedRound, hasCategoryBlitz, level } = usePerks();
   const { getMastery } = useCategoryMastery();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState('medium');
@@ -200,8 +200,10 @@ export default function GameSetupPage() {
             <div className={`text-xs font-semibold mt-1 ${hasSpeedRound ? 'text-white/70' : 'text-white/30'}`}>Speed Round</div>
             <div className={`text-[9px] mt-0.5 ${hasSpeedRound ? 'text-white/30' : 'text-white/15'}`}>5s timer, 2x points</div>
             {!hasSpeedRound && (
-              <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/30">
-                <span className="text-[10px] text-white/50 font-medium">🔒 Lv.4 Scholar</span>
+              <div className="absolute inset-0 flex flex-col items-center justify-center rounded-xl bg-black/50 backdrop-blur-[2px]">
+                <span className="text-2xl mb-1">🔒</span>
+                <span className="text-[10px] text-white/70 font-semibold">Unlocks at Lv.4</span>
+                <span className="text-[9px] text-white/35 mt-0.5">You're Lv.{level}</span>
               </div>
             )}
           </motion.button>
@@ -223,8 +225,10 @@ export default function GameSetupPage() {
             <div className={`text-xs font-semibold mt-1 ${hasCategoryBlitz ? 'text-white/70' : 'text-white/30'}`}>Category Blitz</div>
             <div className={`text-[9px] mt-0.5 ${hasCategoryBlitz ? 'text-white/30' : 'text-white/15'}`}>Mixed categories</div>
             {!hasCategoryBlitz && (
-              <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/30">
-                <span className="text-[10px] text-white/50 font-medium">🔒 Lv.7 Grandmaster</span>
+              <div className="absolute inset-0 flex flex-col items-center justify-center rounded-xl bg-black/50 backdrop-blur-[2px]">
+                <span className="text-2xl mb-1">🔒</span>
+                <span className="text-[10px] text-white/70 font-semibold">Unlocks at Lv.7</span>
+                <span className="text-[9px] text-white/35 mt-0.5">You're Lv.{level}</span>
               </div>
             )}
           </motion.button>
