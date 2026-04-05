@@ -32,6 +32,8 @@ export default function ResultsPage() {
   const [leveledUp, setLeveledUp] = useState(false);
   const [showPerkModal, setShowPerkModal] = useState(false);
   const [unlockedPerks, setUnlockedPerks] = useState([]);
+  const [reviewOpen, setReviewOpen] = useState(false);
+  const [reviewFilter, setReviewFilter] = useState('all');
 
   const { score, correctCount, questions, answers, longestStreak, difficulty, category, questionSource, gameMode } = state;
   const isDaily = gameMode === 'daily';
@@ -225,37 +227,67 @@ export default function ResultsPage() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
       >
-        <h3 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold mb-4">Question Review</h3>
-        <div className="space-y-2.5 mb-10">
-          {answers.map((a, i) => {
-            const q = questions[a.questionIndex];
-            return (
-              <Card key={i} className="!p-4">
-                <div className="flex items-start gap-3">
-                  <span className={`text-base mt-0.5 ${a.isCorrect ? 'text-correct' : 'text-wrong'}`}>
-                    {a.isCorrect ? '✓' : '✗'}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium mb-1 text-white/80">{q.question}</p>
-                    {!a.isCorrect && a.selected && (
-                      <p className="text-xs text-wrong/60">Your answer: {a.selected}</p>
-                    )}
-                    {!a.isCorrect && !a.selected && (
-                      <p className="text-xs text-wrong/60">{a.skipped ? 'Skipped' : 'Time expired'}</p>
-                    )}
-                    <p className="text-xs text-correct/60">Correct: {a.correct}</p>
-                    {a.doubleDipUsed && (
-                      <p className="text-[10px] text-sky-400/60 mt-0.5">🎯 Double Dip (50% points)</p>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold">Question Review</h3>
+          <div className="flex gap-2">
+            {answers.some(a => !a.isCorrect) && (
+              <button
+                onClick={() => setReviewFilter(f => f === 'wrong' ? 'all' : 'wrong')}
+                className={`text-[10px] px-2.5 py-1 rounded-full border transition-all cursor-pointer ${
+                  reviewFilter === 'wrong'
+                    ? 'border-wrong/40 bg-wrong/10 text-wrong/80'
+                    : 'border-white/10 bg-white/[0.03] text-white/30 hover:text-white/50'
+                }`}
+              >
+                Wrong only
+              </button>
+            )}
+            <button
+              onClick={() => setReviewOpen(o => !o)}
+              className="text-[10px] px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03] text-white/30 hover:text-white/50 transition-all cursor-pointer"
+            >
+              {reviewOpen ? 'Hide' : 'Show'}
+            </button>
+          </div>
+        </div>
+        {reviewOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="space-y-2.5 mb-10"
+          >
+            {answers
+              .filter(a => reviewFilter === 'all' || !a.isCorrect)
+              .map((a, i) => {
+              const q = questions[a.questionIndex];
+              return (
+                <Card key={i} className="!p-4">
+                  <div className="flex items-start gap-3">
+                    <span className={`text-base mt-0.5 ${a.isCorrect ? 'text-correct' : 'text-wrong'}`}>
+                      {a.isCorrect ? '✓' : '✗'}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium mb-1 text-white/80">{q.question}</p>
+                      {!a.isCorrect && a.selected && (
+                        <p className="text-xs text-wrong/60">Your answer: {a.selected}</p>
+                      )}
+                      {!a.isCorrect && !a.selected && (
+                        <p className="text-xs text-wrong/60">{a.skipped ? 'Skipped' : 'Time expired'}</p>
+                      )}
+                      <p className="text-xs text-correct/60">Correct: {a.correct}</p>
+                      {a.doubleDipUsed && (
+                        <p className="text-[10px] text-sky-400/60 mt-0.5">🎯 Double Dip (50% points)</p>
+                      )}
+                    </div>
+                    {a.points > 0 && (
+                      <span className="text-sm font-bold text-primary-300">+{a.points}</span>
                     )}
                   </div>
-                  {a.points > 0 && (
-                    <span className="text-sm font-bold text-primary-300">+{a.points}</span>
-                  )}
-                </div>
-              </Card>
-            );
-          })}
-        </div>
+                </Card>
+              );
+            })}
+          </motion.div>
+        )}
       </motion.div>
 
       {/* Actions */}
