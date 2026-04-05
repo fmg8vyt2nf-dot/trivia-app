@@ -10,10 +10,12 @@ export default function HomePage() {
   const { totalXP, level, levelTitle, xpProgress } = useXP();
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-4 py-16 text-center relative">
+    <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center relative">
       {/* Decorative glow orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary-500/[0.08] rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-accent/[0.06] rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary-500/[0.08] rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-accent/[0.06] rounded-full blur-[100px]" />
+      </div>
 
       <motion.div
         initial={{ scale: 0, rotate: -20 }}
@@ -30,7 +32,7 @@ export default function HomePage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-5xl md:text-7xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary-300 via-accent-light to-primary-400 bg-clip-text text-transparent"
+        className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary-300 via-accent-light to-primary-400 bg-clip-text text-transparent"
       >
         Trivia
       </motion.h1>
@@ -39,9 +41,9 @@ export default function HomePage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-white/35 text-base md:text-lg mb-8 max-w-sm leading-relaxed"
+        className="text-white/35 text-sm sm:text-base md:text-lg mb-8 max-w-xs sm:max-w-sm leading-relaxed"
       >
-        Test your knowledge. Build streaks. Climb the leaderboard.
+        Test your knowledge. Build streaks. Top the leaderboard.
       </motion.p>
 
       {/* XP Level Badge */}
