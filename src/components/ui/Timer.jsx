@@ -20,20 +20,21 @@ export default function Timer({ timeRemaining, maxTime, compact = false }) {
           cy="50"
           r={radius}
           fill="none"
-          stroke={color}
           strokeWidth={compact ? 7 : 5}
           strokeLinecap="round"
           strokeDasharray={circumference}
-          animate={{ strokeDashoffset }}
-          transition={{ duration: 0.3, ease: 'linear' }}
-          style={{ filter: `drop-shadow(0 0 8px ${color}50)` }}
+          animate={{ strokeDashoffset, stroke: color }}
+          transition={{ strokeDashoffset: { duration: 0.3, ease: 'linear' }, stroke: { duration: 0.5 } }}
+          style={{ filter: `drop-shadow(0 0 8px ${color}80)` }}
         />
       </svg>
       <motion.span
         className={`absolute ${compact ? 'text-sm' : 'text-xl'} font-bold`}
-        style={{ color }}
-        animate={timeRemaining <= 5 ? { scale: [1, 1.15, 1] } : {}}
-        transition={{ repeat: Infinity, duration: 0.5 }}
+        animate={{ color, scale: timeRemaining <= 5 ? [1, 1.15, 1] : 1 }}
+        transition={{
+          color: { duration: 0.5 },
+          scale: timeRemaining <= 5 ? { repeat: Infinity, duration: 0.5 } : { duration: 0.2 },
+        }}
       >
         {timeRemaining}
       </motion.span>
