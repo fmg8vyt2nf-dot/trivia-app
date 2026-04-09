@@ -292,7 +292,7 @@ export default function ResultsPage() {
 
       {/* Actions */}
       <div className="flex gap-3 justify-center">
-        <Button onClick={handlePlayAgain}>Play Again</Button>
+        <Button onClick={handlePlayAgain}>{isDaily ? 'Play Again' : 'New Game'}</Button>
         <Link to="/">
           <Button variant="secondary">Home</Button>
         </Link>
