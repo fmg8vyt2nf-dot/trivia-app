@@ -15,6 +15,7 @@ import XPBar from '../components/ui/XPBar';
 import XPAnimation from '../components/effects/XPAnimation';
 import PerkUnlockModal from '../components/effects/PerkUnlockModal';
 import { getPerksForLevel } from '../data/levelPerks';
+import { getXPProgress } from '../utils/xpLevels';
 
 export default function ResultsPage() {
   const navigate = useNavigate();
@@ -34,6 +35,10 @@ export default function ResultsPage() {
   const [unlockedPerks, setUnlockedPerks] = useState([]);
   const [reviewOpen, setReviewOpen] = useState(false);
   const [reviewFilter, setReviewFilter] = useState('all');
+  const [prevXPPercentage] = useState(() => {
+    const prevXP = Math.max(0, (totalXP || 0) - (state.score || 0));
+    return getXPProgress(prevXP).percentage;
+  });
 
   const { score, correctCount, questions, answers, longestStreak, difficulty, category, questionSource, gameMode } = state;
   const isDaily = gameMode === 'daily';
@@ -194,7 +199,7 @@ export default function ResultsPage() {
         className="mb-10"
       >
         <Card>
-          <XPBar level={level} levelTitle={levelTitle} xpProgress={xpProgress} />
+          <XPBar level={level} levelTitle={levelTitle} xpProgress={xpProgress} fromPercentage={prevXPPercentage} animateDelay={0.6} />
           {score > 0 && (
             <div className="text-xs text-primary-400 mt-2 text-center font-medium">+{score} XP earned</div>
           )}

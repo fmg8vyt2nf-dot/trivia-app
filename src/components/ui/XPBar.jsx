@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-export default function XPBar({ level, levelTitle, xpProgress, compact = false }) {
+export default function XPBar({ level, levelTitle, xpProgress, compact = false, fromPercentage = 0, animateDelay = 0 }) {
   if (compact) {
     return (
       <div className="flex items-center gap-2">
@@ -11,9 +11,9 @@ export default function XPBar({ level, levelTitle, xpProgress, compact = false }
           <div className="h-1.5 bg-white/[0.08] rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-gradient-to-r from-primary-500 to-accent rounded-full"
-              initial={{ width: 0 }}
+              initial={{ width: `${fromPercentage}%` }}
               animate={{ width: `${xpProgress.percentage}%` }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: animateDelay }}
             />
           </div>
         </div>
@@ -39,13 +39,20 @@ export default function XPBar({ level, levelTitle, xpProgress, compact = false }
           </span>
         </div>
       </div>
-      <div className="h-2 bg-white/[0.08] rounded-full overflow-hidden">
+      <div className="h-2 bg-white/[0.08] rounded-full overflow-hidden relative">
         <motion.div
-          className="h-full bg-gradient-to-r from-primary-500 to-accent rounded-full"
-          initial={{ width: 0 }}
+          className="h-full bg-gradient-to-r from-primary-500 to-accent rounded-full relative"
+          initial={{ width: `${fromPercentage}%` }}
           animate={{ width: `${xpProgress.percentage}%` }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-        />
+          transition={{ duration: 1.2, ease: 'easeOut', delay: animateDelay }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-white/30 rounded-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.6, 0] }}
+            transition={{ duration: 1.2, delay: animateDelay, times: [0, 0.5, 1] }}
+          />
+        </motion.div>
       </div>
     </div>
   );
