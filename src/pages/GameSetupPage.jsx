@@ -83,27 +83,39 @@ export default function GameSetupPage() {
       >
         <h2 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold mb-4">Choose a Category</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-          {CATEGORIES.map(cat => (
-            <motion.button
-              key={cat.id ?? 'any'}
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`p-3.5 rounded-xl border text-center transition-all duration-200 cursor-pointer ${
-                selectedCategory === cat.id
-                  ? 'border-primary-500/50 bg-primary-500/10 shadow-[0_0_20px_rgba(255,107,53,0.15)]'
-                  : 'border-white/[0.06] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12]'
-              }`}
-            >
-              <div className="text-2xl mb-1.5">{cat.icon}</div>
-              <div className="text-[11px] font-medium text-white/70">{cat.name}</div>
-              {cat.id && (() => {
-                const catName = typeof cat.id === 'string' ? (CATEGORY_NAME_MAP[cat.id] || cat.name) : (CATEGORY_NAME_MAP[cat.id] || cat.name);
-                const mastery = getMastery(catName);
-                return mastery?.stars > 0 ? <div className="mt-1"><MasteryStars stars={mastery.stars} size="sm" /></div> : null;
-              })()}
-            </motion.button>
-          ))}
+          {CATEGORIES.map(cat => {
+            const isSelected = selectedCategory === cat.id;
+            return (
+              <motion.button
+                key={cat.id ?? 'any'}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setSelectedCategory(cat.id)}
+                style={{
+                  borderColor: isSelected ? `${cat.accent}80` : undefined,
+                  backgroundColor: isSelected ? `${cat.accent}18` : undefined,
+                  boxShadow: isSelected ? `0 0 20px ${cat.accent}30` : undefined,
+                }}
+                className={`relative overflow-hidden p-3.5 pl-4 rounded-xl border text-center transition-all duration-200 cursor-pointer ${
+                  isSelected
+                    ? ''
+                    : 'border-white/[0.06] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12]'
+                }`}
+              >
+                <div
+                  className="absolute left-0 top-0 bottom-0 w-1 rounded-l-xl"
+                  style={{ backgroundColor: cat.accent, opacity: isSelected ? 1 : 0.55 }}
+                />
+                <div className="text-2xl mb-1.5">{cat.icon}</div>
+                <div className="text-[11px] font-medium text-white/70">{cat.name}</div>
+                {cat.id && (() => {
+                  const catName = typeof cat.id === 'string' ? (CATEGORY_NAME_MAP[cat.id] || cat.name) : (CATEGORY_NAME_MAP[cat.id] || cat.name);
+                  const mastery = getMastery(catName);
+                  return mastery?.stars > 0 ? <div className="mt-1"><MasteryStars stars={mastery.stars} size="sm" /></div> : null;
+                })()}
+              </motion.button>
+            );
+          })}
         </div>
       </motion.section>
 
