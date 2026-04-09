@@ -81,7 +81,7 @@ export default function GameSetupPage() {
         transition={{ delay: 0.1 }}
         className="mb-10"
       >
-        <h2 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold mb-4">Choose a Category</h2>
+        <h2 className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-semibold mb-4">Choose a Category</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {CATEGORIES.map(cat => {
             const isSelected = selectedCategory === cat.id;
@@ -126,7 +126,7 @@ export default function GameSetupPage() {
         transition={{ delay: 0.2 }}
         className="mb-10"
       >
-        <h2 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold mb-4">Difficulty</h2>
+        <h2 className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-semibold mb-4">Difficulty</h2>
         <div className="flex gap-3">
           {DIFFICULTIES.map(diff => (
             <motion.button
@@ -152,7 +152,7 @@ export default function GameSetupPage() {
         transition={{ delay: 0.3 }}
         className="mb-10"
       >
-        <h2 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold mb-4">Number of Questions</h2>
+        <h2 className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-semibold mb-4">Number of Questions</h2>
         <div className="flex gap-3">
           {QUESTION_COUNTS.map(count => (
             <motion.button
@@ -179,7 +179,7 @@ export default function GameSetupPage() {
         transition={{ delay: 0.35 }}
         className="mb-12"
       >
-        <h2 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold mb-4">Game Mode</h2>
+        <h2 className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-semibold mb-4">Game Mode</h2>
         <div className="flex gap-3">
           <motion.button
             whileHover={{ scale: 1.02 }}

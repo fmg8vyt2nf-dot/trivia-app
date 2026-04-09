@@ -81,7 +81,7 @@ export default function HomePage() {
             </div>
             <div className="text-right">
               <div className="text-sm font-bold text-primary-300">+{lastGame.xp}</div>
-              <div className="text-[9px] text-white/25 uppercase tracking-wider">XP</div>
+              <div className="text-[9px] text-white/35 uppercase tracking-wider">XP</div>
             </div>
           </div>
         </motion.div>
@@ -116,12 +116,12 @@ export default function HomePage() {
         >
           <div>
             <div className="text-2xl font-bold text-white/80">{stats.gamesPlayed}</div>
-            <div className="text-[10px] text-white/20 uppercase tracking-widest mt-1">Games</div>
+            <div className="text-[10px] text-white/35 uppercase tracking-widest mt-1">Games</div>
           </div>
           <div className="w-px bg-white/[0.06]" />
           <div>
             <div className="text-2xl font-bold text-white/80">{stats.questionsAnswered}</div>
-            <div className="text-[10px] text-white/20 uppercase tracking-widest mt-1">Questions</div>
+            <div className="text-[10px] text-white/35 uppercase tracking-widest mt-1">Questions</div>
           </div>
         </motion.div>
       )}

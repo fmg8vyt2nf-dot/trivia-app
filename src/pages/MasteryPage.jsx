@@ -75,13 +75,13 @@ export default function MasteryPage() {
                     {entry.stars > 0 ? (
                       <MasteryStars stars={entry.stars} />
                     ) : (
-                      <span className="text-[10px] text-white/25">Need {5 - entry.totalAnswers} more answers</span>
+                      <span className="text-[10px] text-white/40">Need {5 - entry.totalAnswers} more answers</span>
                     )}
                     <div className="flex gap-4 mt-2">
-                      <span className="text-[10px] text-white/25">
+                      <span className="text-[10px] text-white/40">
                         {entry.correctAnswers}/{entry.totalAnswers} correct
                       </span>
-                      <span className="text-[10px] text-white/25">
+                      <span className="text-[10px] text-white/40">
                         {entry.gamesPlayed} {entry.gamesPlayed === 1 ? 'game' : 'games'}
                       </span>
                     </div>

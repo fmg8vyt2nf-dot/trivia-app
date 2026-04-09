@@ -144,6 +144,8 @@ export default function GamePlayPage() {
       if (isCorrect) {
         playSound('correct');
         setShowConfetti(true);
+        // Short haptic tap on correct
+        if (navigator.vibrate) navigator.vibrate(30);
 
         // Streak milestone sound
         if (streak >= 3 && streak > prevStreakRef.current) {

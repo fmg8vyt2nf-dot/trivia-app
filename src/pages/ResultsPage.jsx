@@ -186,7 +186,7 @@ export default function ResultsPage() {
         {statItems.slice(1).map((item) => (
           <div key={item.label} className="text-center">
             <div className={`text-base font-bold ${item.color}`}>{item.value}</div>
-            <div className="text-[9px] text-white/25 mt-0.5 uppercase tracking-widest">{item.label}</div>
+            <div className="text-[9px] text-white/35 mt-0.5 uppercase tracking-widest">{item.label}</div>
           </div>
         ))}
       </motion.div>
@@ -244,7 +244,7 @@ export default function ResultsPage() {
         transition={{ delay: 0.6 }}
       >
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold">Question Review</h3>
+          <h3 className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-semibold">Question Review</h3>
           <div className="flex gap-2">
             {answers.some(a => !a.isCorrect) && (
               <button

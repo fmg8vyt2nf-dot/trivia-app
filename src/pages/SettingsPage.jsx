@@ -57,7 +57,7 @@ export default function SettingsPage() {
         <Card className="flex items-center justify-between">
           <div>
             <div className="font-medium text-sm text-white/80">Timer</div>
-            <div className="text-[11px] text-white/25 mt-0.5">Countdown timer for each question</div>
+            <div className="text-[11px] text-white/35 mt-0.5">Countdown timer for each question</div>
           </div>
           <div className="flex items-center gap-2.5">
             <span className={`text-[10px] font-semibold uppercase tracking-wider w-6 text-right ${settings.timerEnabled ? 'text-primary-300' : 'text-white/30'}`}>
@@ -84,7 +84,7 @@ export default function SettingsPage() {
         <Card className="flex items-center justify-between">
           <div>
             <div className="font-medium text-sm text-white/80">Sound Effects</div>
-            <div className="text-[11px] text-white/25 mt-0.5">Play sounds for correct/wrong answers</div>
+            <div className="text-[11px] text-white/35 mt-0.5">Play sounds for correct/wrong answers</div>
           </div>
           <div className="flex items-center gap-2.5">
             <span className={`text-[10px] font-semibold uppercase tracking-wider w-6 text-right ${soundEnabled ? 'text-primary-300' : 'text-white/30'}`}>
@@ -131,7 +131,7 @@ export default function SettingsPage() {
         <Card className="flex items-center justify-between">
           <div>
             <div className="font-medium text-sm text-white/80">Background Music</div>
-            <div className="text-[11px] text-white/25 mt-0.5">Ambient music during gameplay</div>
+            <div className="text-[11px] text-white/35 mt-0.5">Ambient music during gameplay</div>
           </div>
           <div className="flex items-center gap-2.5">
             <span className={`text-[10px] font-semibold uppercase tracking-wider w-6 text-right ${musicEnabled && soundEnabled ? 'text-primary-300' : 'text-white/30'}`}>
@@ -159,7 +159,7 @@ export default function SettingsPage() {
 
       {/* Theme Picker */}
       <div className="mb-10">
-        <h2 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold mb-4">Theme</h2>
+        <h2 className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-semibold mb-4">Theme</h2>
         <Card>
           <div className="grid grid-cols-4 gap-2">
             {availableThemes.map(theme => (
@@ -193,7 +193,7 @@ export default function SettingsPage() {
 
       {/* Avatar Picker */}
       <div className="mb-10">
-        <h2 className="text-[10px] text-white/25 uppercase tracking-[0.2em] font-semibold mb-4">Choose Avatar</h2>
+        <h2 className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-semibold mb-4">Choose Avatar</h2>
         <Card>
           <div className="flex items-center gap-3 mb-4">
             <span className="text-3xl">{selectedAvatar.emoji}</span>

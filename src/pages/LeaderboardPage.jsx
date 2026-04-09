@@ -66,7 +66,7 @@ export default function LeaderboardPage() {
                   <span className="text-xl">{entry.avatar ? (AVATARS.find(a => a.id === entry.avatar)?.emoji || '👤') : '👤'}</span>
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold truncate text-white/85 text-sm">{entry.name}</div>
-                    <div className="text-[10px] text-white/25 mt-0.5">
+                    <div className="text-[10px] text-white/40 mt-0.5">
                       {entry.category} &middot; {entry.difficulty} &middot; {entry.correctCount}/{entry.totalQuestions}
                     </div>
                   </div>

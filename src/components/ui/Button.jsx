@@ -26,7 +26,7 @@ export default function Button({
     <motion.button
       whileHover={disabled ? {} : { scale: 1.03, y: -1 }}
       whileTap={disabled ? {} : { scale: 0.97 }}
-      className={`rounded-xl font-semibold transition-all duration-200 cursor-pointer ${variants[variant]} ${sizes[size]} ${disabled ? 'opacity-40 cursor-not-allowed saturate-0' : ''} ${className}`}
+      className={`rounded-xl font-semibold transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 ${variants[variant]} ${sizes[size]} ${disabled ? 'opacity-40 cursor-not-allowed saturate-0' : ''} ${className}`}
       disabled={disabled}
       onClick={onClick}
       {...props}
