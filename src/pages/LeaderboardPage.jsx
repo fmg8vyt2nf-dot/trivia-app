@@ -32,12 +32,19 @@ export default function LeaderboardPage() {
 
       {entries.length === 0 ? (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center py-16"
         >
-          <div className="text-4xl mb-6 opacity-50">🏆</div>
-          <p className="text-white/30 mb-8 text-sm">No scores yet. Be the first on the board.</p>
+          <motion.div
+            animate={{ y: [0, -10, 0], rotate: [-3, 3, -3] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            className="text-7xl mb-6 inline-block drop-shadow-[0_0_30px_rgba(245,158,11,0.3)]"
+          >
+            🏆
+          </motion.div>
+          <h2 className="text-xl font-semibold text-white/80 mb-2">No scores yet</h2>
+          <p className="text-white/35 mb-8 text-sm max-w-xs mx-auto">Play your first game to claim the top spot on the leaderboard.</p>
           <Link to="/setup">
             <Button>Start Playing</Button>
           </Link>

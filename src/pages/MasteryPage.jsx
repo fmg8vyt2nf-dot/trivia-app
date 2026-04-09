@@ -42,8 +42,15 @@ export default function MasteryPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center py-16"
         >
-          <div className="text-5xl mb-4">📊</div>
-          <p className="text-white/40 mb-6">No mastery data yet. Play some games to see your stats!</p>
+          <motion.div
+            animate={{ scale: [1, 1.08, 1], rotate: [0, 5, -5, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            className="text-7xl mb-6 inline-block drop-shadow-[0_0_30px_rgba(14,165,233,0.3)]"
+          >
+            📊
+          </motion.div>
+          <h2 className="text-xl font-semibold text-white/80 mb-2">No stats yet</h2>
+          <p className="text-white/35 mb-8 text-sm max-w-xs mx-auto">Answer at least 5 questions in a category to earn mastery stars and track your accuracy.</p>
           <Link to="/setup">
             <Button>Start Playing</Button>
           </Link>
