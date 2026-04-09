@@ -163,6 +163,10 @@ export default function GamePlayPage() {
           playSound('streakShield');
         }
         playSound('wrong');
+        // Haptic feedback on mobile
+        if (navigator.vibrate) {
+          navigator.vibrate(selectedAnswer === null ? [80, 40, 80] : 60);
+        }
       }
 
       // Auto-advance after delay
