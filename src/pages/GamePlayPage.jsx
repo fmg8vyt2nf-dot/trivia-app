@@ -193,9 +193,25 @@ export default function GamePlayPage() {
 
   const isWrong = status === 'answered' && selectedAnswer !== null && selectedAnswer !== currentQuestion.correctAnswer;
 
+  const isTimeUp = status === 'answered' && selectedAnswer === null;
+
   return (
     <div className="flex-1 px-4 py-3 sm:py-6 max-w-2xl mx-auto w-full relative">
       <Confetti active={showConfetti} />
+
+      {/* Time's Up flash overlay */}
+      {isTimeUp && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: [0, 1, 1, 0], scale: [0.5, 1.1, 1, 1.2] }}
+          transition={{ duration: 1.4, times: [0, 0.2, 0.7, 1] }}
+          className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
+        >
+          <div className="px-8 py-5 rounded-2xl bg-wrong/20 border-2 border-wrong/50 backdrop-blur-md shadow-[0_0_60px_rgba(239,68,68,0.5)]">
+            <span className="text-4xl sm:text-5xl font-extrabold text-wrong uppercase tracking-wider">⏰ Time&apos;s Up!</span>
+          </div>
+        </motion.div>
+      )}
 
       {/* Category Blitz banner */}
       {isBlitz && (
