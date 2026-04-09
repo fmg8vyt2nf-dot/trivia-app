@@ -8,6 +8,9 @@ import { useXP } from '../hooks/useXP';
 export default function HomePage() {
   const [stats] = useLocalStorage('trivia_stats', { gamesPlayed: 0, questionsAnswered: 0 });
   const { totalXP, level, levelTitle, xpProgress } = useXP();
+  const lastGame = stats.gameHistory && stats.gameHistory.length > 0
+    ? stats.gameHistory[stats.gameHistory.length - 1]
+    : null;
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center relative">
@@ -52,9 +55,35 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="w-full max-w-xs mb-8"
+          className="w-full max-w-xs mb-5"
         >
           <XPBar level={level} levelTitle={levelTitle} xpProgress={xpProgress} />
+        </motion.div>
+      )}
+
+      {/* Last Game Card */}
+      {lastGame && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="w-full max-w-xs mb-8"
+        >
+          <div className="rounded-2xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] backdrop-blur-xl flex items-center gap-3 text-left">
+            <div className="text-2xl">
+              {lastGame.accuracy >= 80 ? '🏆' : lastGame.accuracy >= 50 ? '👏' : '💪'}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[9px] text-white/30 uppercase tracking-widest font-semibold mb-0.5">Last Game</div>
+              <div className="text-sm text-white/80 font-medium truncate">
+                {lastGame.correctCount}/{lastGame.total} · {lastGame.category}
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-bold text-primary-300">+{lastGame.xp}</div>
+              <div className="text-[9px] text-white/25 uppercase tracking-wider">XP</div>
+            </div>
+          </div>
         </motion.div>
       )}
 
