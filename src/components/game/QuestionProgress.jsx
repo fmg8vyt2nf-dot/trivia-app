@@ -1,13 +1,28 @@
-import ProgressBar from '../ui/ProgressBar';
+import { motion } from 'framer-motion';
 
 export default function QuestionProgress({ current, total }) {
   return (
-    <div className="w-full">
-      <div className="flex justify-between items-center mb-1.5">
-        <span className="text-[10px] text-white/30 font-medium tracking-wide">Question {current + 1} of {total}</span>
-        <span className="text-[10px] text-white/30 font-medium">{Math.round(((current + 1) / total) * 100)}%</span>
-      </div>
-      <ProgressBar value={current + 1} max={total} />
+    <div className="w-full flex items-center gap-1">
+      {Array.from({ length: total }).map((_, i) => {
+        const isActive = i === current;
+        const isDone = i < current;
+        return (
+          <motion.div
+            key={i}
+            initial={false}
+            animate={{
+              backgroundColor: isDone
+                ? 'rgba(255,107,53,0.85)'
+                : isActive
+                ? 'rgba(255,107,53,1)'
+                : 'rgba(255,255,255,0.08)',
+              boxShadow: isActive ? '0 0 8px rgba(255,107,53,0.5)' : '0 0 0 rgba(0,0,0,0)',
+            }}
+            transition={{ duration: 0.3 }}
+            className="flex-1 h-1 rounded-full"
+          />
+        );
+      })}
     </div>
   );
 }
