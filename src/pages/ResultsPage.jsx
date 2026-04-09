@@ -145,9 +145,9 @@ export default function ResultsPage() {
         onClose={() => setShowPerkModal(false)}
       />
 
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-        <div className="text-5xl mb-4">{accuracy >= 80 ? '🏆' : accuracy >= 50 ? '👏' : '💪'}</div>
-        <h1 className="text-3xl font-bold mb-2 text-white/90">
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-6">
+        <div className="text-4xl mb-2">{accuracy >= 80 ? '🏆' : accuracy >= 50 ? '👏' : '💪'}</div>
+        <h1 className="text-xl font-semibold mb-1 text-white/70">
           {accuracy >= 80 ? 'Amazing!' : accuracy >= 50 ? 'Good Job!' : 'Keep Practicing!'}
         </h1>
         {gameMode === 'speed' && (
@@ -158,22 +158,33 @@ export default function ResultsPage() {
         )}
       </motion.div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-        {statItems.map((item, i) => (
-          <motion.div
-            key={item.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 * i }}
-          >
-            <Card className="text-center !py-5">
-              <div className={`text-2xl font-bold ${item.color}`}>{item.value}</div>
-              <div className="text-[10px] text-white/25 mt-1.5 uppercase tracking-widest">{item.label}</div>
-            </Card>
-          </motion.div>
+      {/* Hero Score */}
+      <motion.div
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 220, damping: 18, delay: 0.15 }}
+        className="text-center mb-2"
+      >
+        <div className="text-[10px] text-white/25 uppercase tracking-[0.25em] font-semibold mb-1">Final Score</div>
+        <div className="text-7xl md:text-8xl font-extrabold bg-gradient-to-br from-primary-300 via-primary-400 to-accent bg-clip-text text-transparent leading-none drop-shadow-[0_0_30px_rgba(255,107,53,0.25)]">
+          {score}
+        </div>
+      </motion.div>
+
+      {/* Compact Stats Row */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.45 }}
+        className="flex items-center justify-center gap-6 mb-8 py-3"
+      >
+        {statItems.slice(1).map((item) => (
+          <div key={item.label} className="text-center">
+            <div className={`text-base font-bold ${item.color}`}>{item.value}</div>
+            <div className="text-[9px] text-white/25 mt-0.5 uppercase tracking-widest">{item.label}</div>
+          </div>
         ))}
-      </div>
+      </motion.div>
 
       {/* XP Progress */}
       <motion.div
