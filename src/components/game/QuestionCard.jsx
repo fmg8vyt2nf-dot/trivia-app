@@ -18,11 +18,11 @@ export default function QuestionCard({ question, selectedAnswer, onAnswer, isRev
           <DifficultyBadge difficulty={question.difficulty} />
         </div>
 
-        <h2 className="text-lg md:text-xl font-semibold mb-6 leading-relaxed text-white/95">
+        <h2 className="text-lg md:text-xl font-semibold mb-7 md:mb-8 leading-[1.55] text-white/95">
           {question.question}
         </h2>
 
-        <div className="grid gap-3">
+        <div className="grid gap-3.5">
           {question.allAnswers.map((answer, i) => (
             <AnswerOption
               key={answer}
