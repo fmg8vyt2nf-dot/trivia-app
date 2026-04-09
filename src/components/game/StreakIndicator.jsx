@@ -18,7 +18,17 @@ export default function StreakIndicator({ streak }) {
         >
           🔥
         </motion.span>
-        <span className="text-streak font-bold text-xs">{streak}x Streak!</span>
+        <AnimatePresence mode="popLayout">
+          <motion.span
+            key={streak}
+            initial={{ scale: 1.8, color: '#fde047' }}
+            animate={{ scale: 1, color: '#f59e0b' }}
+            transition={{ type: 'spring', stiffness: 400, damping: 12 }}
+            className="text-streak font-bold text-xs inline-block"
+          >
+            {streak}x Streak!
+          </motion.span>
+        </AnimatePresence>
       </motion.div>
     </AnimatePresence>
   );
