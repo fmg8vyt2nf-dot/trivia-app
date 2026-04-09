@@ -65,8 +65,8 @@ export default function AnswerOption({ answer, index, isSelected, isCorrect, isR
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.07, type: 'spring', stiffness: 320, damping: 24 }}
       whileHover={disabled ? {} : { scale: 1.015, x: 4 }}
-      whileTap={disabled ? {} : { scale: 0.97 }}
-      className={`w-full px-4 py-4 md:py-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-3.5 cursor-pointer backdrop-blur-sm ${bg} ${glow} ${shakeClass} ${disabled && !isRevealed ? 'cursor-not-allowed' : ''}`}
+      whileTap={disabled ? {} : { scale: 0.96, backgroundColor: 'rgba(255,107,53,0.18)', borderColor: 'rgba(255,107,53,0.5)' }}
+      className={`w-full px-4 py-4 md:py-5 rounded-xl border text-left transition-all duration-200 flex items-center gap-3.5 cursor-pointer backdrop-blur-sm active:brightness-125 ${bg} ${glow} ${shakeClass} ${disabled && !isRevealed ? 'cursor-not-allowed' : ''}`}
       onClick={() => !disabled && onSelect(answer)}
       disabled={disabled}
     >
