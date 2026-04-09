@@ -5,8 +5,10 @@ import { CATEGORIES } from '../data/categories';
 import Card from '../components/ui/Card';
 import MasteryStars from '../components/game/MasteryStars';
 import Button from '../components/ui/Button';
+import { useSwipeBack } from '../hooks/useSwipeBack';
 
 export default function MasteryPage() {
+  useSwipeBack();
   const { getAllMasteryEntries, getMastery } = useCategoryMastery();
   const entries = getAllMasteryEntries();
 

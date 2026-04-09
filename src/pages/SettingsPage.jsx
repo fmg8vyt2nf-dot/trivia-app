@@ -9,8 +9,10 @@ import AvatarPicker from '../components/game/AvatarPicker';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import Modal from '../components/ui/Modal';
+import { useSwipeBack } from '../hooks/useSwipeBack';
 
 export default function SettingsPage() {
+  useSwipeBack();
   const [settings, setSettings] = useLocalStorage('trivia_settings', {
     timerEnabled: true,
     soundEnabled: true,

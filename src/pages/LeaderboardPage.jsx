@@ -6,10 +6,12 @@ import { AVATARS } from '../data/avatars';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import Modal from '../components/ui/Modal';
+import { useSwipeBack } from '../hooks/useSwipeBack';
 
 const rankColors = ['text-amber-400', 'text-gray-300', 'text-amber-600'];
 
 export default function LeaderboardPage() {
+  useSwipeBack();
   const { entries, clearLeaderboard } = useLeaderboard();
   const [showClearModal, setShowClearModal] = useState(false);
 
