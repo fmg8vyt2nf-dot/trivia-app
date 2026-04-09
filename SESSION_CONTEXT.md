@@ -1,85 +1,51 @@
-# Session Context — Trivia App
+# Session Context — 2026-04-04
 
 ## Current State
+Trivia App is fully built and deployed on GitHub Pages at `https://fmg8vyt2nf-dot.github.io/trivia-app/`. This session focused on UX improvements — 6 of 12 identified improvements were implemented, committed, and pushed (auto-deployed via GitHub Actions).
 
-The app is fully functional with **8 pages**, **18 categories**, **416+ questions**, **5 power-ups**, and a new **level-based perks system** with 4 perks. All features verified on dev server with zero console errors.
+**Repo:** `https://github.com/fmg8vyt2nf-dot/trivia-app`
+**Branch:** `main`
+**Latest commit:** `f493d4c` — "Improve locked game mode clarity with level progress"
 
-### What Was Built This Session
+## Completed This Session
 
-**Category Hint power-up** (from previous session, verified this session):
-- 💡 Hint button reveals clue about the correct answer (word count + first letter)
+### UX Improvements (6 of 12 done)
+1. **Home page text clipping** — Fixed glow orbs causing overflow, added responsive font sizes, shortened tagline
+2. **Gameplay screen overcrowding** — Merged avatar/timer/progress into single compact row, reduced margins and power-up sizes
+3. **Tap targets too small** — Power-up buttons now use `flex-1 min-w-[44px]` to meet 44px mobile touch guideline
+4. **Loading/error state for questions** — Added spinner on GamePlayPage, error banner on GameSetupPage when API fails
+5. **Collapsible question review** — Results page question review collapsed by default with Show/Hide toggle and "Wrong only" filter
+6. **Locked features clarity** — Locked game modes now show large lock icon, "Unlocks at Lv.X", and current player level
 
-**4 Level-Based Perks** (new this session):
-1. **Extra 50/50 (Lv 3 Quizzer)** — 2 uses of 50/50 per game instead of 1
-2. **Speed Round (Lv 4 Scholar)** — New game mode: 5s timer, 2x points, ⚡ banner
-3. **Double Dip (Lv 5 Expert)** — New power-up: pick 2 answers, if either correct get 50% points. First wrong answer shown struck-through in red, "Try again!" banner, timer keeps running
-4. **Locked Avatars (Lv 4/6/8)** — Dragon🐲=Lv4 Scholar, Unicorn🦄=Lv6 Master, Alien👽=Lv8 Legend. 🔒 overlay with grayscale+blur in avatar picker
+### Other Fixes
+- Fixed header icons overlapping on mobile (emoji icons on mobile/tablet, text labels on lg+)
+- Fixed CSS `* { padding: 0 }` overriding Tailwind utilities by wrapping in `@layer base`
+- Committed and pushed 350+ new questions + improved repeat prevention (from previous session)
 
-### Architecture
-- `src/data/levelPerks.js` — Central perk registry with pure utility functions (`getPlayerLevel()`, `getPerkAdjustedPowerUps()`, `isAvatarUnlocked()`)
-- `src/hooks/usePerks.js` — Reactive hook wrapping `useXP()` for component-level perk queries
-- Level data bridged to GameContext reducer via action payloads (not inside the reducer itself)
-
-## Files Modified This Session
-
-### New Files (2)
-| File | Purpose |
-|------|---------|
-| `src/data/levelPerks.js` | Perk definitions, LOCKED_AVATARS map, getPlayerLevel(), isPerkUnlocked(), isAvatarUnlocked(), getPerkAdjustedPowerUps() |
-| `src/hooks/usePerks.js` | Reactive hook: useXP() + perk checks, returns hasSpeedRound, hasDoubleDip, checkAvatar, etc. |
-
-### Modified Files (12)
-| File | Changes |
-|------|---------|
-| `src/context/GameContext.jsx` | Added doubleDip to powerUps, doubleDipActive/doubleDipFirstAnswer state, USE_DOUBLE_DIP + DOUBLE_DIP_FIRST_WRONG actions, speed round timer override in SET_CONFIG, 2x/0.5x scoring multipliers in SELECT_ANSWER, double dip reset in TIME_UP/NEXT_QUESTION, accept powerUps payload in LOAD_QUESTIONS |
-| `src/hooks/useTrivia.js` | Import getPerkAdjustedPowerUps, pass level-adjusted powerUps in startGame/startDailyChallenge, add startSpeedRound(), add useDoubleDip(), modify submitAnswer() to intercept double dip first wrong |
-| `src/utils/constants.js` | Added SPEED_ROUND_TIMER=5, SPEED_ROUND_MULTIPLIER=2 |
-| `src/components/game/PowerUpBar.jsx` | Added doubleDip (🎯 Dip) to powerUpConfig array + onUseDoubleDip prop/handler |
-| `src/components/game/QuestionCard.jsx` | Accept doubleDipFirstAnswer prop, pass isDoubleDipWrong to AnswerOption |
-| `src/components/game/AnswerOption.jsx` | Handle isDoubleDipWrong: red-tinted disabled state with ✗, line-through, pointer-events-none |
-| `src/components/game/AvatarPicker.jsx` | Accept playerLevel prop, show 🔒 overlay with level requirement for locked avatars, grayscale+blur |
-| `src/hooks/useAvatar.js` | Guard: fallback to Fox if selected avatar is locked, reject locked avatar selection |
-| `src/pages/GameSetupPage.jsx` | Added Game Mode section (Standard/Speed Round toggle), usePerks() for hasSpeedRound, speed round lock overlay, startSpeedRound(), updated summary text |
-| `src/pages/GamePlayPage.jsx` | Added useDoubleDip, handleDoubleDip handler, ⚡ Speed Round banner, 🎯 "Try again!" feedback banner, pass doubleDipFirstAnswer to QuestionCard, pass onUseDoubleDip to PowerUpBar |
-| `src/pages/SettingsPage.jsx` | Import useXP, pass playerLevel={level} to AvatarPicker |
-| `src/pages/ResultsPage.jsx` | Added ⚡ Speed Round badge in results header, 🎯 Double Dip indicator in question review |
+## Files Modified
+- `src/pages/HomePage.jsx` — Responsive text, glow orb isolation, shorter tagline
+- `src/pages/GamePlayPage.jsx` — Compact top bar layout, loading spinner, reduced banner margins
+- `src/pages/GameSetupPage.jsx` — Error state, improved locked mode overlays with level info
+- `src/pages/ResultsPage.jsx` — Collapsible question review with wrong-only filter
+- `src/components/game/AvatarDisplay.jsx` — Added `compact` prop (40px mode)
+- `src/components/ui/Timer.jsx` — Added `compact` prop (48px mode, thicker stroke)
+- `src/components/game/PowerUpBar.jsx` — Responsive sizing, min-w-[44px] tap targets
+- `src/components/layout/Header.jsx` — Emoji icons on mobile, text on lg+
+- `src/index.css` — Wrapped `*` reset in `@layer base` to fix Tailwind specificity
 
 ## Key Decisions
+- Used emoji icons (⭐🏆⚙️) for mobile nav instead of hamburger menu — simpler, no extra state
+- Compact mode via props (not breakpoints) for Avatar/Timer — reusable across contexts
+- Question review collapsed by default — reduces mobile scroll by ~500px on a 10-question game
+- Lock overlay shows current level ("You're Lv.3") — gives users progress context
 
-1. **Level-Perk Bridge**: Pure `getPlayerLevel()` reads localStorage directly — no hook dependency, safe for action payload construction outside the reducer
-2. **Power-up counts via payload**: `LOAD_QUESTIONS` accepts `action.payload.powerUps` instead of hardcoding, so level-adjusted counts flow in from `getPerkAdjustedPowerUps()`
-3. **Double Dip intermediate state**: `DOUBLE_DIP_FIRST_WRONG` keeps status as `'playing'` (timer continues), only stores the wrong answer. Second pick goes through normal `SELECT_ANSWER`
-4. **Speed Round as game mode**: Uses `gameMode: 'speed'` (alongside 'standard' and 'daily'), overrides timePerQuestion in SET_CONFIG, applies 2x multiplier in SELECT_ANSWER
-5. **Locked Avatars**: 3 premium avatars gated by level. Selection guard in useAvatar prevents locked avatar use even if localStorage is manipulated
-6. **XP restored to 8500**: After testing at various levels, XP was set to 8500 (Level 6 Master) for the user
-
-## Power-Ups (5 total now)
-| Power-Up | Icon | Count | Description |
-|----------|------|-------|-------------|
-| 50/50 | ✂️ | 1 (2 at Lv3+) | Remove 2 wrong answers |
-| Double Dip | 🎯 | 0 (1 at Lv5+) | Two attempts, 50% points |
-| Skip | ⏭️ | 1 | Skip question without penalty |
-| Extra Time | ⏱️ | 1 | Add 10 seconds |
-| Category Hint | 💡 | 1 | Reveal answer length + first letter |
-
-## localStorage State
-- `trivia_xp`: `{ totalXP: 8500 }` (Level 6 Master)
-- `trivia_stats`: `{ gamesPlayed: 24, questionsAnswered: 210 }`
-- `trivia_seen_questions`: Per-category question hashes (repeat prevention)
-
-## Next Steps
-
-Potential features to work on next:
-- **Perk unlock notifications**: Show a toast/modal when leveling up unlocks a new perk
-- **Endless Mode (Lv 6)**: Play until 3 wrong answers, no question limit
-- **Streak Shield (Lv 3)**: Protect answer streak once per game
-- **Hard Mode Bonus (Lv 3)**: Extra XP multiplier for Hard difficulty
-- **Score Multiplier (Lv 4+)**: Permanent scaling score bonus per level
-- **Confetti Styles (Lv 5+)**: Unlock different celebration effects
-- **UI polish**: Perk unlock progress display on home page, perk descriptions in settings
+## Next Steps — 6 Remaining UX Improvements
+7. Settings toggles lack labels (add On/Off text or ARIA)
+8. No "time's up" animation (add Time's Up flash on timer expiry)
+9. Haptic feedback on mobile (navigator.vibrate on wrong answers)
+10. Swipe gestures (results review, page navigation)
+11. Streak counter animation (scale/pulse on increment)
+12. "Play Again" clarity (rename to "New Game" or "Back to Setup")
 
 ## How to Resume
-
-```
-Read SESSION_CONTEXT.md and resume where we left off. The app has 8 pages, 18 categories, 5 power-ups, and 4 level-based perks (Extra 50/50, Double Dip, Speed Round, Locked Avatars) all verified working. Show me the current state and suggest what to work on next.
-```
+> "Continue with UX improvements #7-12. The backlog is saved in memory. Start with #7 (settings toggle labels)."

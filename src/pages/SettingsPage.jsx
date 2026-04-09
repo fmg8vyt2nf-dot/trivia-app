@@ -57,18 +57,26 @@ export default function SettingsPage() {
             <div className="font-medium text-sm text-white/80">Timer</div>
             <div className="text-[11px] text-white/25 mt-0.5">Countdown timer for each question</div>
           </div>
-          <button
-            onClick={() => toggleSetting('timerEnabled')}
-            className={`w-11 h-6 rounded-full transition-all duration-200 cursor-pointer ${
-              settings.timerEnabled ? 'bg-primary-500 shadow-[0_0_12px_rgba(255,107,53,0.3)]' : 'bg-white/10'
-            }`}
-          >
-            <motion.div
-              className="w-4.5 h-4.5 bg-white rounded-full shadow-sm"
-              animate={{ x: settings.timerEnabled ? 22 : 3 }}
-              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-            />
-          </button>
+          <div className="flex items-center gap-2.5">
+            <span className={`text-[10px] font-semibold uppercase tracking-wider w-6 text-right ${settings.timerEnabled ? 'text-primary-300' : 'text-white/30'}`}>
+              {settings.timerEnabled ? 'On' : 'Off'}
+            </span>
+            <button
+              role="switch"
+              aria-checked={settings.timerEnabled}
+              aria-label="Timer"
+              onClick={() => toggleSetting('timerEnabled')}
+              className={`w-11 h-6 rounded-full transition-all duration-200 cursor-pointer ${
+                settings.timerEnabled ? 'bg-primary-500 shadow-[0_0_12px_rgba(255,107,53,0.3)]' : 'bg-white/10'
+              }`}
+            >
+              <motion.div
+                className="w-4.5 h-4.5 bg-white rounded-full shadow-sm"
+                animate={{ x: settings.timerEnabled ? 22 : 3 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              />
+            </button>
+          </div>
         </Card>
 
         <Card className="flex items-center justify-between">
@@ -76,18 +84,26 @@ export default function SettingsPage() {
             <div className="font-medium text-sm text-white/80">Sound Effects</div>
             <div className="text-[11px] text-white/25 mt-0.5">Play sounds for correct/wrong answers</div>
           </div>
-          <button
-            onClick={toggleSound}
-            className={`w-11 h-6 rounded-full transition-all duration-200 cursor-pointer ${
-              soundEnabled ? 'bg-primary-500 shadow-[0_0_12px_rgba(255,107,53,0.3)]' : 'bg-white/10'
-            }`}
-          >
-            <motion.div
-              className="w-4.5 h-4.5 bg-white rounded-full shadow-sm"
-              animate={{ x: soundEnabled ? 22 : 3 }}
-              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-            />
-          </button>
+          <div className="flex items-center gap-2.5">
+            <span className={`text-[10px] font-semibold uppercase tracking-wider w-6 text-right ${soundEnabled ? 'text-primary-300' : 'text-white/30'}`}>
+              {soundEnabled ? 'On' : 'Off'}
+            </span>
+            <button
+              role="switch"
+              aria-checked={soundEnabled}
+              aria-label="Sound Effects"
+              onClick={toggleSound}
+              className={`w-11 h-6 rounded-full transition-all duration-200 cursor-pointer ${
+                soundEnabled ? 'bg-primary-500 shadow-[0_0_12px_rgba(255,107,53,0.3)]' : 'bg-white/10'
+              }`}
+            >
+              <motion.div
+                className="w-4.5 h-4.5 bg-white rounded-full shadow-sm"
+                animate={{ x: soundEnabled ? 22 : 3 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              />
+            </button>
+          </div>
         </Card>
 
         {/* Volume Slider */}
@@ -115,19 +131,27 @@ export default function SettingsPage() {
             <div className="font-medium text-sm text-white/80">Background Music</div>
             <div className="text-[11px] text-white/25 mt-0.5">Ambient music during gameplay</div>
           </div>
-          <button
-            onClick={toggleMusic}
-            className={`w-11 h-6 rounded-full transition-all duration-200 cursor-pointer ${
-              musicEnabled && soundEnabled ? 'bg-primary-500 shadow-[0_0_12px_rgba(255,107,53,0.3)]' : 'bg-white/10'
-            }`}
-            disabled={!soundEnabled}
-          >
-            <motion.div
-              className="w-4.5 h-4.5 bg-white rounded-full shadow-sm"
-              animate={{ x: musicEnabled && soundEnabled ? 22 : 3 }}
-              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-            />
-          </button>
+          <div className="flex items-center gap-2.5">
+            <span className={`text-[10px] font-semibold uppercase tracking-wider w-6 text-right ${musicEnabled && soundEnabled ? 'text-primary-300' : 'text-white/30'}`}>
+              {musicEnabled && soundEnabled ? 'On' : 'Off'}
+            </span>
+            <button
+              role="switch"
+              aria-checked={musicEnabled && soundEnabled}
+              aria-label="Background Music"
+              onClick={toggleMusic}
+              className={`w-11 h-6 rounded-full transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
+                musicEnabled && soundEnabled ? 'bg-primary-500 shadow-[0_0_12px_rgba(255,107,53,0.3)]' : 'bg-white/10'
+              }`}
+              disabled={!soundEnabled}
+            >
+              <motion.div
+                className="w-4.5 h-4.5 bg-white rounded-full shadow-sm"
+                animate={{ x: musicEnabled && soundEnabled ? 22 : 3 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              />
+            </button>
+          </div>
         </Card>
       </div>
 
