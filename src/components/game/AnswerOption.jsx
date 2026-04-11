@@ -84,7 +84,7 @@ export default function AnswerOption({ answer, index, isSelected, isCorrect, isR
               className="h-full rounded-full bg-accent/60"
             />
           </div>
-          <span className="text-[10px] font-bold text-accent/80 w-8 text-right">{pollPercentage}%</span>
+          <span className="text-sm font-bold text-accent w-10 text-right">{pollPercentage}%</span>
         </div>
       )}
       {isRevealed && answer === isCorrect && (
