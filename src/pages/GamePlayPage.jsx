@@ -77,7 +77,7 @@ export default function GamePlayPage() {
     handleTimeUp();
   }, [handleTimeUp]);
 
-  const { timeRemaining, addTime } = useTimer({
+  const { timeRemaining, addTime, paused, pause, resume } = useTimer({
     duration: timePerQuestion,
     onExpire: onTimeUp,
     isRunning: status === 'playing',
@@ -203,6 +203,44 @@ export default function GamePlayPage() {
 
   return (
     <div className="flex-1 px-4 py-3 sm:py-6 max-w-2xl mx-auto w-full relative">
+      {/* Pause overlay */}
+      {paused && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0f0f1a]/95 backdrop-blur-md"
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            className="text-center"
+          >
+            <div className="text-6xl mb-4">⏸️</div>
+            <h2 className="text-2xl font-bold text-white/90 mb-2">Game Paused</h2>
+            <p className="text-sm text-white/40 mb-8">Question {currentIndex + 1} of {questions.length}</p>
+            <div className="flex flex-col gap-3">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={resume}
+                className="px-8 py-3.5 rounded-xl font-semibold bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg shadow-primary-500/30 cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
+              >
+                Resume
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => { resume(); navigate('/setup'); }}
+                className="px-8 py-3 rounded-xl font-semibold bg-white/8 text-white/60 border border-white/10 cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
+              >
+                Quit Game
+              </motion.button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
       <Confetti active={showConfetti} />
 
       {/* Time's Up flash overlay */}
@@ -278,7 +316,21 @@ export default function GamePlayPage() {
             <ScoreDisplay score={score} />
           </div>
         </div>
-        <Timer timeRemaining={timeRemaining} maxTime={timePerQuestion} compact />
+        <div className="flex items-center gap-1.5">
+          {status === 'playing' && (
+            <button
+              onClick={pause}
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-white/40 hover:text-white/80 hover:bg-white/[0.06] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
+              title="Pause game"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                <rect x="2" y="1" width="3.5" height="12" rx="1" />
+                <rect x="8.5" y="1" width="3.5" height="12" rx="1" />
+              </svg>
+            </button>
+          )}
+          <Timer timeRemaining={timeRemaining} maxTime={timePerQuestion} compact />
+        </div>
       </div>
 
       {/* Power-ups */}
