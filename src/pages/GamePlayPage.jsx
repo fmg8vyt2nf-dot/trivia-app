@@ -18,7 +18,7 @@ export default function GamePlayPage() {
   const navigate = useNavigate();
   const {
     state, submitAnswer, handleTimeUp, nextQuestion,
-    useFiftyFifty, useSkip, useExtraTime, clearExtraTimeFlag, useCategoryHint, useDoubleDip, useAudiencePoll,
+    useFiftyFifty, useReroll, useSlowMotion, clearSlowMotionFlag, useCategoryHint, useDoubleDip, useAudiencePoll,
   } = useTrivia();
   const advanceTimerRef = useRef(null);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -29,7 +29,7 @@ export default function GamePlayPage() {
 
   const {
     questions, currentIndex, status, score, streak, selectedAnswer,
-    timePerQuestion, powerUps, eliminatedAnswers, extraTimeGranted, currentHint,
+    timePerQuestion, powerUps, eliminatedAnswers, slowMotionGranted, currentHint,
     doubleDipActive, doubleDipFirstAnswer, gameMode,
     streakShield, streakShieldUsed, audiencePollData,
   } = state;
@@ -83,13 +83,37 @@ export default function GamePlayPage() {
     isRunning: status === 'playing',
   });
 
-  // Handle extra time power-up
+  // Handle Slow Motion power-up: timer runs at 0.3× speed for 10 seconds
+  const [slowMo, setSlowMo] = useState(false);
+  const slowMoIntervalRef = useRef(null);
+  const slowMoTimeoutRef = useRef(null);
+
+  // Clear slow motion on question change
   useEffect(() => {
-    if (extraTimeGranted) {
-      addTime(10);
-      clearExtraTimeFlag();
+    setSlowMo(false);
+    if (slowMoIntervalRef.current) clearInterval(slowMoIntervalRef.current);
+    if (slowMoTimeoutRef.current) clearTimeout(slowMoTimeoutRef.current);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    if (slowMotionGranted) {
+      clearSlowMotionFlag();
+      setSlowMo(true);
+      // Every 200ms, push startTime forward by 140ms so only 60ms of 200ms registers
+      // Effect: timer ticks at 0.3× normal speed
+      slowMoIntervalRef.current = setInterval(() => {
+        addTime(0.14);
+      }, 200);
+      slowMoTimeoutRef.current = setTimeout(() => {
+        setSlowMo(false);
+        clearInterval(slowMoIntervalRef.current);
+      }, 10000);
+      return () => {
+        clearInterval(slowMoIntervalRef.current);
+        clearTimeout(slowMoTimeoutRef.current);
+      };
     }
-  }, [extraTimeGranted, addTime, clearExtraTimeFlag]);
+  }, [slowMotionGranted, clearSlowMotionFlag, addTime]);
 
   // Timer tick sound for last 5 seconds
   useEffect(() => {
@@ -111,14 +135,14 @@ export default function GamePlayPage() {
     useFiftyFifty();
   }
 
-  function handleSkip() {
-    playSound('skip');
-    useSkip();
+  function handleReroll() {
+    playSound('powerUp');
+    useReroll();
   }
 
-  function handleExtraTime() {
+  function handleSlowMotion() {
     playSound('powerUp');
-    useExtraTime();
+    useSlowMotion();
   }
 
   function handleCategoryHint() {
@@ -257,6 +281,20 @@ export default function GamePlayPage() {
         </motion.div>
       )}
 
+      {/* Slow Motion overlay */}
+      {slowMo && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: [0.7, 1, 0.7], scale: 1 }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          className="fixed top-4 left-1/2 -translate-x-1/2 z-40 pointer-events-none"
+        >
+          <div className="px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/40 backdrop-blur-md shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+            <span className="text-purple-300 text-sm font-bold tracking-wide">🐌 SLOW MOTION</span>
+          </div>
+        </motion.div>
+      )}
+
       {/* Category Blitz banner */}
       {isBlitz && (
         <motion.div
@@ -338,8 +376,8 @@ export default function GamePlayPage() {
         <PowerUpBar
           powerUps={powerUps}
           onUseFiftyFifty={handleFiftyFifty}
-          onUseSkip={handleSkip}
-          onUseExtraTime={handleExtraTime}
+          onUseReroll={handleReroll}
+          onUseSlowMotion={handleSlowMotion}
           onUseCategoryHint={handleCategoryHint}
           onUseDoubleDip={handleDoubleDip}
           onUseAudiencePoll={handleAudiencePoll}

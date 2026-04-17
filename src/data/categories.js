@@ -17,4 +17,6 @@ export const CATEGORIES = [
   { id: 'marvel', name: 'Marvel', icon: '🦸', accent: '#dc2626' },
   { id: 'indian_history', name: 'Indian History', icon: '🏛️', accent: '#eab308' },
   { id: 'bollywood_songs', name: 'Bollywood Songs', icon: '🎶', accent: '#c026d3' },
+  { id: 'bollywood_cinema', name: 'Bollywood Directors & Cinema', icon: '🎬', accent: '#e11d48' },
+  { id: 'ipl_cricket', name: 'IPL & T20 Cricket', icon: '🏆', accent: '#f97316' },
 ];

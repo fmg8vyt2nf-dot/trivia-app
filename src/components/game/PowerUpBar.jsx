@@ -3,18 +3,18 @@ import { motion } from 'framer-motion';
 const powerUpConfig = [
   { key: 'fiftyFifty', icon: '✂️', label: '50/50', desc: 'Remove 2 wrong answers' },
   { key: 'doubleDip', icon: '🎯', label: 'Dip', desc: 'Two attempts, 50% points' },
-  { key: 'skip', icon: '⏭️', label: 'Skip', desc: 'Skip this question' },
-  { key: 'extraTime', icon: '⏱️', label: '+10s', desc: 'Add 10 seconds' },
+  { key: 'reroll', icon: '🔄', label: 'Reroll', desc: 'Swap for a new question' },
+  { key: 'slowMotion', icon: '🐌', label: 'Slow-Mo', desc: 'Slow timer to 0.3× for 10s' },
   { key: 'categoryHint', icon: '💡', label: 'Hint', desc: 'Get a clue' },
   { key: 'audiencePoll', icon: '📊', label: 'Poll', desc: 'Ask the audience' },
 ];
 
-export default function PowerUpBar({ powerUps, onUseFiftyFifty, onUseSkip, onUseExtraTime, onUseCategoryHint, onUseDoubleDip, onUseAudiencePoll, disabled }) {
+export default function PowerUpBar({ powerUps, onUseFiftyFifty, onUseReroll, onUseSlowMotion, onUseCategoryHint, onUseDoubleDip, onUseAudiencePoll, disabled }) {
   const handlers = {
     fiftyFifty: onUseFiftyFifty,
     doubleDip: onUseDoubleDip,
-    skip: onUseSkip,
-    extraTime: onUseExtraTime,
+    reroll: onUseReroll,
+    slowMotion: onUseSlowMotion,
     categoryHint: onUseCategoryHint,
     audiencePoll: onUseAudiencePoll,
   };

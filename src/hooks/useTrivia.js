@@ -5,6 +5,7 @@ import { markQuestionsAsSeen } from '../services/seenQuestions';
 import { getPerkAdjustedPowerUps, isPerkUnlocked } from '../data/levelPerks';
 import { shuffle } from '../utils/shuffle';
 import { CATEGORIES } from '../data/categories';
+import { questions as fallbackPool } from '../data/fallbackQuestions';
 
 export function useTrivia() {
   const { state, dispatch } = useGameContext();
@@ -121,20 +122,45 @@ export function useTrivia() {
     }
   }, [dispatch, state.powerUps.fiftyFifty, state.status]);
 
-  const useSkip = useCallback(() => {
-    if (state.powerUps.skip > 0 && state.status === 'playing') {
-      dispatch({ type: 'USE_SKIP' });
-    }
-  }, [dispatch, state.powerUps.skip, state.status]);
+  const useReroll = useCallback(() => {
+    if (state.powerUps.reroll > 0 && state.status === 'playing') {
+      const currentQ = state.questions[state.currentIndex];
+      const usedQuestions = new Set(state.questions.map(q => q.question));
+      // Find a replacement from the same category and difficulty
+      const candidates = fallbackPool.filter(q =>
+        q.category === currentQ.category &&
+        q.difficulty === currentQ.difficulty &&
+        !usedQuestions.has(q.question)
+      );
+      // Fallback: same category any difficulty
+      const pool = candidates.length > 0
+        ? candidates
+        : fallbackPool.filter(q => q.category === currentQ.category && !usedQuestions.has(q.question));
+      // Fallback: any question not already in game
+      const finalPool = pool.length > 0
+        ? pool
+        : fallbackPool.filter(q => !usedQuestions.has(q.question));
 
-  const useExtraTime = useCallback(() => {
-    if (state.powerUps.extraTime > 0 && state.status === 'playing') {
-      dispatch({ type: 'USE_EXTRA_TIME' });
+      if (finalPool.length > 0) {
+        const picked = finalPool[Math.floor(Math.random() * finalPool.length)];
+        const replacement = {
+          ...picked,
+          id: crypto.randomUUID(),
+          allAnswers: shuffle([picked.correctAnswer, ...picked.incorrectAnswers]),
+        };
+        dispatch({ type: 'USE_REROLL', payload: { replacement } });
+      }
     }
-  }, [dispatch, state.powerUps.extraTime, state.status]);
+  }, [dispatch, state.powerUps.reroll, state.status, state.questions, state.currentIndex]);
 
-  const clearExtraTimeFlag = useCallback(() => {
-    dispatch({ type: 'CLEAR_EXTRA_TIME_FLAG' });
+  const useSlowMotion = useCallback(() => {
+    if (state.powerUps.slowMotion > 0 && state.status === 'playing') {
+      dispatch({ type: 'USE_SLOW_MOTION' });
+    }
+  }, [dispatch, state.powerUps.slowMotion, state.status]);
+
+  const clearSlowMotionFlag = useCallback(() => {
+    dispatch({ type: 'CLEAR_SLOW_MOTION_FLAG' });
   }, [dispatch]);
 
   const useCategoryHint = useCallback(() => {
@@ -166,9 +192,9 @@ export function useTrivia() {
     nextQuestion,
     resetGame,
     useFiftyFifty,
-    useSkip,
-    useExtraTime,
-    clearExtraTimeFlag,
+    useReroll,
+    useSlowMotion,
+    clearSlowMotionFlag,
     useCategoryHint,
     useDoubleDip,
     useAudiencePoll,

@@ -21,9 +21,10 @@ const initialState = {
   timePerQuestion: TIMER_DURATION.medium,
   questionSource: null,
   // Power-ups
-  powerUps: { fiftyFifty: 1, skip: 1, extraTime: 1, categoryHint: 1, doubleDip: 0, audiencePoll: 1 },
+  powerUps: { fiftyFifty: 1, reroll: 1, slowMotion: 1, categoryHint: 1, doubleDip: 0, audiencePoll: 1 },
   eliminatedAnswers: [],
-  extraTimeGranted: false,
+  slowMotionGranted: false,
+  rerollQuestion: null, // backup of original question for reroll
   currentHint: null,
   audiencePollData: null, // { answer: percentage } map when active
   // Streak Shield (passive — auto-activates on wrong answer when streak > 0)
@@ -65,9 +66,9 @@ function gameReducer(state, action) {
         streak: 0,
         longestStreak: 0,
         answers: [],
-        powerUps: action.payload.powerUps || { fiftyFifty: 1, skip: 1, extraTime: 1, categoryHint: 1, doubleDip: 0, audiencePoll: 1 },
+        powerUps: action.payload.powerUps || { fiftyFifty: 1, reroll: 1, slowMotion: 1, categoryHint: 1, doubleDip: 0, audiencePoll: 1 },
         eliminatedAnswers: [],
-        extraTimeGranted: false,
+        slowMotionGranted: false,
         currentHint: null,
         audiencePollData: null,
         doubleDipActive: false,
@@ -186,54 +187,33 @@ function gameReducer(state, action) {
       };
     }
 
-    case 'USE_SKIP': {
-      if (state.powerUps.skip <= 0 || state.status !== 'playing') return state;
-      const question = state.questions[state.currentIndex];
-      const nextIndex = state.currentIndex + 1;
-      const newAnswers = [
-        ...state.answers,
-        {
-          questionIndex: state.currentIndex,
-          selected: null,
-          correct: question.correctAnswer,
-          isCorrect: false,
-          points: 0,
-          timeRemaining: 0,
-          skipped: true,
-        },
-      ];
-
-      if (nextIndex >= state.questions.length) {
-        return {
-          ...state,
-          status: 'finished',
-          answers: newAnswers,
-          powerUps: { ...state.powerUps, skip: state.powerUps.skip - 1 },
-        };
-      }
-
+    case 'USE_REROLL': {
+      if (state.powerUps.reroll <= 0 || state.status !== 'playing') return state;
+      const replacement = action.payload.replacement;
+      if (!replacement) return state;
+      const newQuestions = [...state.questions];
+      newQuestions[state.currentIndex] = replacement;
       return {
         ...state,
-        currentIndex: nextIndex,
-        selectedAnswer: null,
+        questions: newQuestions,
+        powerUps: { ...state.powerUps, reroll: state.powerUps.reroll - 1 },
         eliminatedAnswers: [],
-        answers: newAnswers,
-        powerUps: { ...state.powerUps, skip: state.powerUps.skip - 1 },
-        // Keep status as 'playing' — no 'answered' transition
+        currentHint: null,
+        audiencePollData: null,
       };
     }
 
-    case 'USE_EXTRA_TIME': {
-      if (state.powerUps.extraTime <= 0 || state.status !== 'playing') return state;
+    case 'USE_SLOW_MOTION': {
+      if (state.powerUps.slowMotion <= 0 || state.status !== 'playing') return state;
       return {
         ...state,
-        powerUps: { ...state.powerUps, extraTime: state.powerUps.extraTime - 1 },
-        extraTimeGranted: true,
+        powerUps: { ...state.powerUps, slowMotion: state.powerUps.slowMotion - 1 },
+        slowMotionGranted: true,
       };
     }
 
-    case 'CLEAR_EXTRA_TIME_FLAG':
-      return { ...state, extraTimeGranted: false };
+    case 'CLEAR_SLOW_MOTION_FLAG':
+      return { ...state, slowMotionGranted: false };
 
     case 'USE_CATEGORY_HINT': {
       if (state.powerUps.categoryHint <= 0 || state.status !== 'playing') return state;

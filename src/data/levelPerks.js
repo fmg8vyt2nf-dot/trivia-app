@@ -155,8 +155,8 @@ export function getPerkAdjustedPowerUps(level = null) {
   const playerLevel = level ?? getPlayerLevel();
   return {
     fiftyFifty: playerLevel >= 3 ? 2 : 1,
-    skip: 1,
-    extraTime: 1,
+    reroll: 1,
+    slowMotion: 1,
     categoryHint: 1,
     doubleDip: playerLevel >= 5 ? 1 : 0,
     audiencePoll: 1,
