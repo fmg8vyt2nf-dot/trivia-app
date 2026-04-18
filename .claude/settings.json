@@ -7,6 +7,11 @@
           {
             "type": "command",
             "command": "npx prettier --write $(echo $CLAUDE_FILE_PATHS | tr ',' ' ') 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "INPUT=$(cat); FILE=$(echo \"$INPUT\" | jq -r '.tool_input.file_path // empty'); [ -n \"$FILE\" ] && git -C \"/Users/maheshdalvi/Documents/Trivia App\" add \"$FILE\" && (git -C \"/Users/maheshdalvi/Documents/Trivia App\" diff --cached --quiet || git -C \"/Users/maheshdalvi/Documents/Trivia App\" commit -m \"Auto-commit: $(basename \\\"$FILE\\\")\") 2>/dev/null || true",
+            "statusMessage": "Committing changes..."
           }
         ]
       }
