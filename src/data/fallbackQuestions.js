@@ -1307,6 +1307,48 @@ export const questions = [
   { category: 'IPL & T20 Cricket', difficulty: 'hard', question: 'Which bowler has the best economy rate (min. 50 wickets) in IPL history?', correctAnswer: 'Sunil Narine', incorrectAnswers: ['Rashid Khan', 'Lasith Malinga', 'Anil Kumble'] },
   { category: 'IPL & T20 Cricket', difficulty: 'hard', question: 'In T20 Internationals, which batsman has the highest career strike rate (min. 1000 runs)?', correctAnswer: 'Rohit Sharma', incorrectAnswers: ['Andre Russell', 'Kieron Pollard', 'Glenn Maxwell'] },
   { category: 'IPL & T20 Cricket', difficulty: 'hard', question: 'The Lucknow Super Giants and Gujarat Titans were added to the IPL in which season?', correctAnswer: '2022 (IPL Season 15)', incorrectAnswers: ['2020', '2021', '2023'] },
+
+  // Indian Food & Cuisine
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'Which flatbread is made from whole wheat flour and cooked on a tawa (griddle)?', correctAnswer: 'Roti / Chapati', incorrectAnswers: ['Naan', 'Bhatura', 'Paratha'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'What is the main ingredient in dal?', correctAnswer: 'Lentils', incorrectAnswers: ['Rice', 'Chickpeas', 'Kidney beans'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'Which spice gives turmeric its bright yellow colour?', correctAnswer: 'Curcumin', incorrectAnswers: ['Capsaicin', 'Saffron', 'Annatto'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'Biryani is a rice dish typically cooked using which method?', correctAnswer: 'Dum (slow steam cooking)', incorrectAnswers: ['Deep frying', 'Pressure cooking', 'Boiling'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'Which city is famous for its Hyderabadi biryani?', correctAnswer: 'Hyderabad', incorrectAnswers: ['Lucknow', 'Kolkata', 'Mumbai'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'What is paneer?', correctAnswer: 'Fresh Indian cottage cheese', incorrectAnswers: ['A type of lentil', 'A fermented yogurt', 'A dried spice blend'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'Which Indian bread is traditionally leavened and cooked in a tandoor?', correctAnswer: 'Naan', incorrectAnswers: ['Roti', 'Puri', 'Thepla'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'What is the main flavouring in rasam, the South Indian soup?', correctAnswer: 'Tamarind and black pepper', incorrectAnswers: ['Coconut milk and chilli', 'Tomato and cumin', 'Yogurt and turmeric'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'Samosa is a fried pastry typically filled with what?', correctAnswer: 'Spiced potatoes and peas', incorrectAnswers: ['Minced meat and onion', 'Paneer and corn', 'Lentils and spinach'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'Which sweet is made from condensed milk and is orange in colour?', correctAnswer: 'Gulab jamun', incorrectAnswers: ['Rasgulla', 'Barfi', 'Halwa'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'What is the name of the spiced tea made with milk, ginger, and cardamom?', correctAnswer: 'Masala chai', incorrectAnswers: ['Lassi', 'Thandai', 'Sharbat'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'Idli is a steamed rice cake popular in which region of India?', correctAnswer: 'South India', incorrectAnswers: ['North India', 'East India', 'West India'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'easy', question: 'Which condiment is made from yogurt, cucumber, and spices?', correctAnswer: 'Raita', incorrectAnswers: ['Chutney', 'Achaar', 'Sambar'] },
+
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'What is the key difference between Lucknowi (Awadhi) biryani and Hyderabadi biryani?', correctAnswer: 'Lucknowi uses the pakki dum method (pre-cooked meat); Hyderabadi uses the kacchi dum method (raw marinated meat)', incorrectAnswers: ['Lucknowi uses basmati; Hyderabadi uses sona masoori rice', 'Lucknowi is vegetarian; Hyderabadi always has meat', 'Lucknowi uses saffron; Hyderabadi uses turmeric for colour'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'Which state is the origin of the dish "Laal Maas"?', correctAnswer: 'Rajasthan', incorrectAnswers: ['Gujarat', 'Punjab', 'Maharashtra'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'What does "tadka" (or tarka) mean in Indian cooking?', correctAnswer: 'Tempering spices in hot oil or ghee', incorrectAnswers: ['Marinating meat overnight', 'Slow-cooking in a sealed vessel', 'Grinding spices into a paste'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'Which Indian state is famous for "Modak", said to be Lord Ganesha\'s favourite sweet?', correctAnswer: 'Maharashtra', incorrectAnswers: ['Gujarat', 'Karnataka', 'Tamil Nadu'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'What is "ghee" made from?', correctAnswer: 'Clarified butter (from cow or buffalo milk)', incorrectAnswers: ['Refined vegetable oil', 'Coconut fat', 'Fermented cream'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'The dish "Rogan Josh" originates from which regional cuisine?', correctAnswer: 'Kashmiri', incorrectAnswers: ['Punjabi', 'Mughlai', 'Goan'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'Dosa is made from a fermented batter of rice and which other ingredient?', correctAnswer: 'Urad dal (black lentils)', incorrectAnswers: ['Moong dal', 'Chana dal', 'Toor dal'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'Which spice blend is the base of most North Indian gravies and is typically made of coriander, cumin, turmeric, and chilli?', correctAnswer: 'Garam masala', incorrectAnswers: ['Chaat masala', 'Tandoori masala', 'Sabzi masala'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'What is "khichdi" traditionally made of?', correctAnswer: 'Rice and lentils cooked together', incorrectAnswers: ['Wheat and chickpeas', 'Millet and spinach', 'Rice and vegetables'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'Which Goan dish is known for its tangy, spicy pork preparation using vinegar?', correctAnswer: 'Vindaloo', incorrectAnswers: ['Sorpotel', 'Xacuti', 'Cafreal'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'What is "chaat masala" primarily used for?', correctAnswer: 'Seasoning street food snacks and salads', incorrectAnswers: ['Marinating meats', 'Tempering curries', 'Sweetening desserts'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'The popular street food "pani puri" is known by what name in Mumbai?', correctAnswer: 'Pani puri', incorrectAnswers: ['Golgappa', 'Phuchka', 'Pakodi'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'Which Indian sweet is made from reduced milk and has a granular texture?', correctAnswer: 'Kalakand', incorrectAnswers: ['Kheer', 'Rabri', 'Basundi'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'medium', question: 'What is the primary grain used to make "bajra roti", popular in Rajasthan?', correctAnswer: 'Pearl millet', incorrectAnswers: ['Jowar (sorghum)', 'Maize', 'Barley'] },
+
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'Which ancient Indian text, considered the first cookbook, details recipes from around 300 AD?', correctAnswer: 'Manasollasa', incorrectAnswers: ['Arthashastra', 'Charaka Samhita', 'Natyashastra'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'The "Maillard reaction" is essential in making which Indian snack by producing its golden crust?', correctAnswer: 'Bhatura / deep-fried breads', incorrectAnswers: ['Rasgulla', 'Idli', 'Lassi'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'Which coastal state\'s cuisine heavily features "Kokum" as a souring agent instead of tamarind?', correctAnswer: 'Goa and Konkan (Maharashtra)', incorrectAnswers: ['Kerala', 'Andhra Pradesh', 'West Bengal'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'What is "asafoetida" (hing) derived from?', correctAnswer: 'The dried resin of Ferula plants', incorrectAnswers: ['The bark of neem trees', 'Fermented black mustard seeds', 'Dried roots of turmeric plant'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'The Mughal emperor Akbar\'s court reportedly had a royal dish called "Nauratan Korma" — what does "nauratan" mean?', correctAnswer: 'Nine gems (made with 9 ingredients)', incorrectAnswers: ['Royal jewel (single prized ingredient)', 'Seven spices (saat masala)', 'Golden curry (saffron-based)'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'Which North-East Indian state is known for "Bhut jolokia" (ghost pepper), once the world\'s hottest chilli?', correctAnswer: 'Nagaland / Assam (Nagaland primarily)', incorrectAnswers: ['Manipur', 'Meghalaya', 'Arunachal Pradesh'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'What is the traditional process of making "kala namak" (black salt)?', correctAnswer: 'Firing rock salt with harad seeds and charcoal in a kiln', incorrectAnswers: ['Evaporating seawater with volcanic ash', 'Fermenting white salt with iron oxide', 'Grinding mineral deposits from the Himalayas'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'The "Wazwan" is a 36-course ceremonial meal originating from which region?', correctAnswer: 'Kashmir', incorrectAnswers: ['Lucknow', 'Hyderabad', 'Punjab'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'Which fermentation process is used to make "kanji", the North Indian probiotic drink?', correctAnswer: 'Lactic acid fermentation of black carrots or beets', incorrectAnswers: ['Yeast fermentation of rice water', 'Acetic acid fermentation of tamarind', 'Alcoholic fermentation of coconut sap'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: '"Petha" is a translucent sweet made from which vegetable, famously produced in Agra?', correctAnswer: 'Ash gourd (white pumpkin / winter melon)', incorrectAnswers: ['Bottle gourd', 'Ridge gourd', 'Bitter melon'] },
+  { category: 'Indian Food & Cuisine', difficulty: 'hard', question: 'The cooking technique "dum pukht" literally means what?', correctAnswer: 'Breathing and maturing (slow-cooking with sealed steam)', incorrectAnswers: ['Frying until golden', 'Cooking over open flame', 'Steaming over boiling water'] },
 ];
 
 
@@ -1329,16 +1371,17 @@ export function getLocalQuestions({ amount = 10, category = null, difficulty = n
   if (category) filtered = filtered.filter(q => q.category === category);
   if (difficulty) filtered = filtered.filter(q => q.difficulty === difficulty);
 
-  // If not enough, relax difficulty filter
-  if (filtered.length < amount && category) {
+  // If not enough, relax difficulty filter (but stay within the same category)
+  if (filtered.length < amount && category && difficulty) {
     filtered = questions.filter(q => q.category === category);
   }
 
-  // If still not enough, use all questions
-  if (filtered.length < amount) {
+  // If still not enough AND no specific category was requested, use all questions
+  if (filtered.length < amount && !category) {
     filtered = questions;
   }
 
+  // Return however many we have — never bleed into other categories
   const shuffled = shuffle(filtered);
   return shuffled.slice(0, amount).map(toNormalized);
 }
@@ -1363,4 +1406,5 @@ export const CATEGORY_NAME_MAP = {
   bollywood_songs: 'Bollywood Songs',
   bollywood_cinema: 'Bollywood Directors & Cinema',
   ipl_cricket: 'IPL & T20 Cricket',
+  indian_food: 'Indian Food & Cuisine',
 };
