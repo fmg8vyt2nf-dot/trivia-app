@@ -22,7 +22,7 @@ export default function GamePlayPage() {
   } = useTrivia();
   const advanceTimerRef = useRef(null);
   const [showConfetti, setShowConfetti] = useState(false);
-  const { playSound } = useSound();
+  const { playSound, soundEnabled, toggleSound } = useSound();
   const { selectedAvatar } = useAvatar();
   const gameStartedRef = useRef(false);
   const prevStreakRef = useRef(0);
@@ -287,7 +287,7 @@ export default function GamePlayPage() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: [0.7, 1, 0.7], scale: 1 }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="fixed top-4 left-1/2 -translate-x-1/2 z-40 pointer-events-none"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 pointer-events-none"
         >
           <div className="px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/40 backdrop-blur-md shadow-[0_0_30px_rgba(168,85,247,0.3)]">
             <span className="text-purple-300 text-sm font-bold tracking-wide">🐌 SLOW MOTION</span>
@@ -355,6 +355,13 @@ export default function GamePlayPage() {
           </div>
         </div>
         <div className="flex items-center gap-1.5">
+          <button
+            onClick={toggleSound}
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-white/40 hover:text-white/80 hover:bg-white/[0.06] transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
+            title={soundEnabled ? 'Mute sounds' : 'Unmute sounds'}
+          >
+            <span className="text-sm">{soundEnabled ? '🔊' : '🔇'}</span>
+          </button>
           {status === 'playing' && (
             <button
               onClick={pause}

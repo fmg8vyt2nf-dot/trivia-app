@@ -17,6 +17,8 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  if (isPlaying) return null;
+
   return (
     <motion.header
       initial={{ y: -60 }}
