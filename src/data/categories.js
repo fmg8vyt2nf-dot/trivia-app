@@ -20,4 +20,5 @@ export const CATEGORIES = [
   { id: 'bollywood_cinema', name: 'Bollywood Directors & Cinema', icon: '🎬', accent: '#e11d48' },
   { id: 'ipl_cricket', name: 'IPL & T20 Cricket', icon: '🏆', accent: '#f97316' },
   { id: 'indian_food', name: 'Indian Food & Cuisine', icon: '🍛', accent: '#f59e0b' },
+  { id: 'bollywood_actors', name: 'Bollywood Actors & Stars', icon: '🎭', accent: '#f43f5e' },
 ];

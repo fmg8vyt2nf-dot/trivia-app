@@ -13,6 +13,7 @@ const CATEGORY_API_MAP = {
   bollywood_cinema: { categories: 'film_and_tv', tags: 'bollywood' },
   ipl_cricket: null,
   indian_food: null,
+  bollywood_actors: null,
   // These don't have good API matches — will use local fallback only
   bollywood: null,
   bollywood_songs: null,
