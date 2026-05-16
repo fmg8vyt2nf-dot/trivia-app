@@ -99,6 +99,8 @@ export default function GamePlayPage() {
     if (slowMotionGranted) {
       clearSlowMotionFlag();
       setSlowMo(true);
+      // Immediately inject 5s so timer can't expire before the interval kicks in
+      addTime(5);
       // Every 200ms, push startTime forward by 140ms so only 60ms of 200ms registers
       // Effect: timer ticks at 0.3× normal speed
       slowMoIntervalRef.current = setInterval(() => {
